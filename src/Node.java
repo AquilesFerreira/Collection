@@ -7,21 +7,19 @@ public class Node <E>{
         this.next = null;
     }
 
-    public void setElement(E ele) {
-        element = ele;
-    }
-
     public E getElement() {
         return element;
     }
 
-    public void setNext(Node<E> next) {
-        this.next = next;
+    public void setElement(E ele) {
+        element = ele;
     }
 
     public Node<E> getNext() {
         return next;
     }
 
-
+    public void setNext(Node<E> next) {
+        this.next = next;
+    }
 }
