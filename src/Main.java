@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        LinkedList<Integer> lista = new LinkedList<>();
+        /*LinkedList<Integer> lista = new LinkedList<>();
 
         lista.addFirst(10);
         lista.addFirst(20);
@@ -27,7 +27,12 @@ public class Main {
 
         lista.clear();
         System.out.println(lista.isEmpty()); // true
-        System.out.println(lista);           // []
+        System.out.println(lista);           // []*/
 
+        DoubleLinkedList teste = new DoubleLinkedList<>();
+
+        teste.addFirst("SAUDE");
+
+        System.out.println(teste);
     }
 }

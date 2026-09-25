@@ -10,10 +10,9 @@ public class LinkedList<E> {
 
     public void addFirst(E element) {
         if (size == 0) {
-            head = new Node<>(element);
-            tail = new Node<>(element);
+            head = tail = new Node<>(element);
             size++;
-        } else if (size > 0) {
+        } else {
             Node<E> new_node = new Node<>(element);
             new_node.setNext(head);
             head = new_node;
@@ -34,8 +33,9 @@ public class LinkedList<E> {
     }
 
     public boolean removeFirst() {
-        if (size == 0) return false;
-        if (size > 0) {
+        if (size == 0) {
+            return false;
+        }else if (size > 0) {
             if (head.getNext() != null) {
                 head = head.getNext();
             } else {
