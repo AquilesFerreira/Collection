@@ -78,18 +78,18 @@ public class DoubleLinkedList<E> {
         return size == 0;
     }
 
-    @Override
+   /* @Override
     public String toString(){
         if (size == 0){
             System.out.println("[]");
         }else {
             Node<E> atual = head;
-            while (atual != null /*&& atual*/){
+            while (atual != null && atual){
                 System.out.print("[" + atual.getElement() + "]" + ",");
                 if (atual.getNext() != null){
 
                 }
             }
         }
-    }
+    }*/
 }
