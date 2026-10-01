@@ -2,7 +2,7 @@ public class LinkedList<E> {
     private Node<E> head, tail;
     private int size;
 
-    LinkedList() {
+    public LinkedList() {
         head = null;
         tail = null;
         size = 0;
