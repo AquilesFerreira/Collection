@@ -126,7 +126,7 @@ public class LinkedList<E> {
             index++;
         }
 
-        return -1;  // Não encontrado
+        return -1;
     }
 
     public void add(int index, E element) {
@@ -155,19 +155,11 @@ public class LinkedList<E> {
     public boolean remove(E element) {
         if (size == 0) return false;
 
-        // Verifica se é o primeiro
         if ((element == null && head.getElement() == null) ||
                 (element != null && element.equals(head.getElement()))) {
             return removeFirst();
         }
 
-        // Verifica se é o último
-        if ((element == null && tail.getElement() == null) ||
-                (element != null && element.equals(tail.getElement()))) {
-            return removeLast();
-        }
-
-        // Procura no meio
         Node<E> atual = head;
         while (atual.getNext() != null) {
             if ((element == null && atual.getNext().getElement() == null) ||
@@ -177,6 +169,11 @@ public class LinkedList<E> {
                 return true;
             }
             atual = atual.getNext();
+        }
+
+        if ((element == null && tail.getElement() == null) ||
+                (element != null && element.equals(tail.getElement()))) {
+            return removeLast();
         }
 
         return false;
@@ -212,7 +209,6 @@ public class LinkedList<E> {
         head = null;
         tail = null;
         size = 0;
-        // O(1) porque não percorre - só zera referências
     }
 
     @Override
