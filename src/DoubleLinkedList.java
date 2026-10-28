@@ -70,6 +70,71 @@ public class DoubleLinkedList<E> {
         return true;
     }
 
+    public E removeIndex(int posicao){
+        if (posicao < 0 || posicao >= size){
+            throw new IndexOutOfBoundsException("Indice invalido.");
+        }
+
+        E elementoRemovido;
+
+        if (posicao == 0){
+            elementoRemovido = head.getElement();
+            removeFirst();
+        }else if (posicao == size - 1){
+            elementoRemovido = tail.getElement();
+            removeLast();
+        }else {
+            Node<E> atual;
+            if (posicao < size/2){
+                atual = head;
+                for (int i = 0; i < posicao; i++){
+                    atual = atual.getNext();
+                }
+            }else{
+                atual = tail;
+                for (int i = size - 1; i > posicao; i--){
+                    atual = atual.getPrev();
+                }
+            }
+            elementoRemovido = atual.getElement();
+            atual.getPrev().setNext(atual.getNext());
+            atual.getNext().setPrev(atual.getPrev());
+            atual.setPrev(null);
+            atual.setNext(null);
+            size--;
+        }
+
+        return elementoRemovido;
+    }
+
+    public boolean removeElement(E elemento){
+        if (size == 0){return false;}
+
+        if ((elemento == null && head.getElement() == null) || (elemento != null && elemento.equals(head.getElement()))){
+            return removeFirst();
+        }
+
+        Node<E> atual = head;
+
+        while (atual.getNext() != null){
+            if ((elemento == null && atual.getElement() == null) || (elemento != null && elemento.equals(atual.getElement()))){
+                atual.getPrev().setNext(atual.getNext());
+                atual.getNext().setPrev(atual.getPrev());
+                atual.setPrev(null);
+                atual.setNext(null);
+                size--;
+                return true;
+            }
+            atual = atual.getNext();
+        }
+
+        if ((elemento == null && tail.getElement() == null) || (elemento != null && elemento.equals(tail.getElement()))){
+            return removeLast();
+        }
+
+        return false;
+    }
+
     public int getSize() {
         return size;
     }
@@ -83,30 +148,27 @@ public class DoubleLinkedList<E> {
         size = 0;
     }
 
-    public void add(int indice, E elemento){
-        if (indice < 0 || indice > size){
-            throw new IndexOutOfBoundsException("Índice inválido: " + indice);
+    public void add(int posicao, E elemento){
+        if (posicao < 0 || posicao > size){
+            throw new IndexOutOfBoundsException("Indice invalido");
         }
 
-        if (indice == 0){
+        Node<E> novo = new Node<>(elemento);
+        Node<E> atual = head;
+
+        if (posicao == 0){
             addFirst(elemento);
-            System.out.println("PRONTO!");
-        }else if (indice == size){
+        }else if (posicao == size){
             addLast(elemento);
-            System.out.println("PRONTO!");
         }else {
-            Node<E> novoNode = new Node<>(elemento);
-            Node<E> anterior = (Node<E>) get(indice - 1);
-            Node<E> proximo = anterior.getNext();
-
-            anterior.setNext(novoNode);
-            novoNode.setPrev(anterior);
-
-            novoNode.setNext(proximo);
-            proximo.setPrev(novoNode);
-
+            for (int i = 0; i < posicao; i++){
+                atual = atual.getNext();
+            }
+            novo.setPrev(atual.getPrev());
+            atual.getPrev().setNext(novo);
+            novo.setNext(atual);
+            atual.setPrev(novo);
             size++;
-
         }
     }
 
@@ -157,10 +219,26 @@ public class DoubleLinkedList<E> {
         return reservarValor.getElement();
     }
 
+    public E set(int indice, E elemento){
+        if (indice < 0 || indice >= size){
+            throw new IndexOutOfBoundsException("Indice invalido.");
+        }
+
+        Node<E> atual = head;
+        for (int i = 0; i < indice; i++){
+            atual = atual.getNext();
+        }
+
+        E velha = atual.getElement();
+        atual.setElement(elemento);
+
+        return velha;
+    }
+
     @Override
     public String toString() {
         if (size == 0) {
-            System.out.println("[]");
+            return "[]";
         }
 
         String resultado = "[";
