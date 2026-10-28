@@ -117,6 +117,7 @@ public class Simples<E>{
 
         while (referencia.getNext() != null){
             if ((elemento == null && referencia.getNext().getElement() == null) || (elemento != null && elemento.equals(referencia.getNext().getElement()))){
+                if (referencia.getNext() == tail) {tail = referencia;}
                 referencia.setNext(referencia.getNext().getNext());
                 size--;
                 return true;
